@@ -24,7 +24,8 @@
 //  the wind speed, date / time, and Arlo mode each time the wind speed crosses a pre-set threshold. You can view this historical information in a Google spreadsheet.  This script WILL NOT eliminate all instances
 //  of motion-detection-due-to-wind.  It will only reduce the frequency of the motion detections caused by wind.  The effectiveness of the script can be adjusted by altering the wind speed threshold (which then
 //  triggers the change in Arlo sensitivity), and by adjusting the camera-motion-detection-sensitivity settings based on the conditions where your cameras are located.  More on that below.  Below are the
-//  instructions to get the script running.
+//  instructions to get the script running.  NOTE:  If you are logged in to your Arlo account via app or web at the time this script logs in to change the mode, you will be logged out of the app or web.  Also, if you
+//  happen to log in via app or web during the approximately two seconds that the script is logged in and changing the mode, you may end up bumping the script's login and causing the mode change to fail on that attempt.
 
 //  INSTRUCTIONS
 //  1. Go to https://docs.google.com/spreadsheets and "Start a new spreadsheet".  You need to have a Google account and be signed in to the account when you do this.
