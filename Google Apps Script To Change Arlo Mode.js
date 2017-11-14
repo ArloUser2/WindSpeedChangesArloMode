@@ -133,7 +133,10 @@ function SetUp() {
     writeToCell(C1, "Mode", "center", "underline", "bold");
   }
   if ((A2.getValue() == "") || (isNaN(A2.getValue())) || (typeof A2.getValue() != 'number') || (typeof B2.getValue() != 'object') || ((C2.getValue() != "Armed Mode") && (C2.getValue() != "Windy Mode") && (C2.getValue() != "Mode Change Failed"))) {
-    var response = UrlFetchApp.fetch(wundergroundURL);
+    var params = {
+      'muteHttpExceptions' : true
+    };
+    var response = UrlFetchApp.fetch(wundergroundURL, params);
     if (response.getResponseCode() == 200) {
       var weather = JSON.parse(response.getContentText());
       //  If you want to use wind gust speed instead of wind speed, change the line below to:  var CurrentWindSpeed = weather.current_observation.wind_gust_mph;
@@ -185,7 +188,10 @@ function writeToCell (cell, value, alignment, underlining, weight, numberFormat)
 //  below will fail starting at 8:20am every morning (when you have used your 500 free API calls) and probably this function will fail gracefully and no more successful weather
 //  checks will occur until the next day.
 function CheckWindSpeed() {
-  var response = UrlFetchApp.fetch(wundergroundURL);
+   var params = {
+     'muteHttpExceptions' : true
+   };
+  var response = UrlFetchApp.fetch(wundergroundURL, params);
   //  Response should be 200 if the URL fetch was successful -- see https://developers.google.com/apps-script/reference/url-fetch/http-response#getResponseCode()
   if (response.getResponseCode() == 200) {
     var weather = JSON.parse(response.getContentText());
@@ -233,6 +239,9 @@ function CheckWindSpeed() {
 //  Netgear Arlo account.  If it is, the function probably will only operate on the "last" basestation.  If you do not have any basestations, the function should not make
 //  any changes to your account, and the spreadsheet will record "Mode Change Failed".  Sorry for the poorly named variables in this function.  Once I got it working I decided
 //  it wasn't broken so I shouldn't fix it.
+
+//  For a future update:  Need to muteHttpExceptions for fetches and check for response code of 200
+
 function SetArloMode (mode) {
   var formData = {
    'email': netgearLoginEmail,
